@@ -12,7 +12,7 @@ class App
     if time_format.valid?
       send_response(200, time_format.format_time)
     else
-      send_response(400, time_format.wrong_format)
+      send_response(400, "Unknow time format #{time_format.bad_formats}")
     end
   end
 

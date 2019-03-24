@@ -8,8 +8,11 @@ class TimeHandler
     'second' => '%S'
   }.freeze
 
+  attr_reader :bad_formats
+
   def initialize(time_formats)
-    handle_time_formats(time_formats)
+    time_params = time_formats.split(',')
+    @good_formats, @bad_formats = time_params.partition { |format| TIME_FORMATS.key?(format) }
   end
 
   def format_time
@@ -19,16 +22,5 @@ class TimeHandler
 
   def valid?
     @bad_formats.empty?
-  end
-
-  def wrong_format
-    "Unknown time format #{@bad_formats}"
-  end
-
-  private
-
-  def handle_time_formats(params)
-    time_params = params.split(',')
-    @good_formats, @bad_formats = time_params.partition { |format| TIME_FORMATS.key?(format) }
   end
 end
